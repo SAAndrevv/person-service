@@ -1,0 +1,12 @@
+spring:
+  datasource:
+    platform: postgresql
+    url: jdbc:postgresql://localhost:5432/postgres?currentSchema=medical
+    username: postgres
+    password: root
+    driver-class-name: org.postgresql.Driver
+    initialization-mode: always
+    data: classpath:sql/data-postgresql.sql
+    schema: classpath:sql/schema-postgresql.sql
+    hikari:
+      maximum-pool-size: 10

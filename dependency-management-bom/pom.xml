@@ -16,6 +16,7 @@
 
     <properties>
         <mybatis.version>3.5.5</mybatis.version>
+        <postgres.version>42.5.0</postgres.version>
     </properties>
 
     <dependencyManagement>
@@ -37,6 +38,17 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-actuator</artifactId>
                 <version>${spring.boot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-jdbc</artifactId>
+                <version>${spring.boot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.postgresql</groupId>
+                <artifactId>postgresql</artifactId>
+                <version>${postgres.version}</version>
+                <scope>runtime</scope>
             </dependency>
 
             <dependency>
