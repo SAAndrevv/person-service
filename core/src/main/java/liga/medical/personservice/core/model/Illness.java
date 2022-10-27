@@ -13,7 +13,7 @@ import java.util.Date;
 public class Illness {
 
     private long id;
-    private long medicalCardId;
+    private MedicalCard medicalCardId;
     private long typeId;
     private char heaviness;
     private Timestamp appearanceDttm;

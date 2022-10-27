@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="liga.medical.personservice.core.mappers.AddressMapper">
+
+    <resultMap id="addressResultMap" type="Address">
+        <id property="id" column="id"/>
+        <result property="countryId" column="country_id"/>
+        <result property="countryId" column="country_id"/>
+        <result property="city" column="city"/>
+        <result property="index" column="index"/>
+        <result property="street" column="street"/>
+        <result property="buildings" column="buildings"/>
+        <result property="flat" column="flat"/>
+        <association property="contactId" javaType="Contact">
+            <id property="id" column="id"/>
+            <result property="phoneNumber" column="phone_number"/>
+            <result property="email" column="email"/>
+            <result property="profileLink" column="profile_link"/>
+        </association>
+    </resultMap>
+
+    <select id="findAllAddress" resultMap="addressResultMap">
+        select * from address
+    </select>
+
+    <select id="findAddressById" resultMap="addressResultMap">
+        select * from address where id = #{id}
+    </select>
+</mapper>

@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 public class Address {
 
     private long id;
-    private long contactId;
+    private Contact contactId;
     private long countryId;
     private String city;
     private int index;

@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -17,8 +18,8 @@ public class PersonData {
     private Date birthDt;
     private short age;
     private char sex;
-    private long contactId;
-    private long medicalCardId;
+    private Contact contactId;
+    private MedicalCard medicalCardId;
     private long parentId;
 
 }

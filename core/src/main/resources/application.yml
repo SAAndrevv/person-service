@@ -10,3 +10,13 @@ spring:
     schema: classpath:sql/schema-postgresql.sql
     hikari:
       maximum-pool-size: 10
+
+mybatis:
+  config-location: classpath:mybatis-config.xml
+
+logging:
+  level:
+    org:
+      springframework:
+        jdbc:
+          core: TRACE
