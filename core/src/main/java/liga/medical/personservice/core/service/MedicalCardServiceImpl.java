@@ -1,6 +1,5 @@
 package liga.medical.personservice.core.service;
 
-
 import liga.medical.personservice.core.mappers.MedicalCardMapper;
 import liga.medical.personservice.core.model.MedicalCard;
 import lombok.NonNull;

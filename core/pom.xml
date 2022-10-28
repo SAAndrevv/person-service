@@ -62,6 +62,8 @@
             <groupId>org.mybatis.spring.boot</groupId>
             <artifactId>mybatis-spring-boot-starter</artifactId>
         </dependency>
+        <!--data: classpath:sql/data-postgresql.sql
+        schema: classpath:sql/schema-postgresql.sql-->
     </dependencies>
 
     <build>

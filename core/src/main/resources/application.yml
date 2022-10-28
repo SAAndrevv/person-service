@@ -1,4 +1,6 @@
 spring:
+  liquibase:
+    enabled: ${LIQUIBASE_ENABLE:false}
   datasource:
     platform: postgresql
     url: jdbc:postgresql://localhost:5432/postgres?currentSchema=medical
@@ -6,10 +8,11 @@ spring:
     password: root
     driver-class-name: org.postgresql.Driver
     initialization-mode: always
-    data: classpath:sql/data-postgresql.sql
-    schema: classpath:sql/schema-postgresql.sql
     hikari:
       maximum-pool-size: 10
+      jdbc-url: jdbc:postgresql://localhost:5432/postgres?currentSchema=medical
+      username: ${DB_USERNAME:postgres}
+      password: ${DB_PASSWORD:root}
 
 mybatis:
   config-location: classpath:mybatis-config.xml
@@ -20,3 +23,4 @@ logging:
       springframework:
         jdbc:
           core: TRACE
+
