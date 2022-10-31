@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+		        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="0.0.2-3" author="Andrey">
+        <comment>Insert roles and admin user</comment>
+
+        <insert tableName="role" schemaName="security">
+            <column name="id" value="0"/>
+            <column name="name" value="ROLE_ADMIN"/>
+        </insert>
+
+        <insert tableName="role" schemaName="security">
+            <column name="id" value="1"/>
+            <column name="name" value="ROLE_USER"/>
+        </insert>
+
+        <insert tableName="user" schemaName="security">
+            <column name="id" value="admin-uuid"/>
+            <column name="username" value="admin"/>
+            <column name="password" value="$2a$12$zluPJwghEwh5kwvGeqnm.u0AFjovToqZXMN0zFQPZljuWUhhD4/Vm"/>
+        </insert>
+
+        <insert tableName="user_to_role" schemaName="security">
+            <column name="user_id" value="admin-uuid"/>
+            <column name="role_id" value="0"/>
+        </insert>
+
+    </changeSet>
+</databaseChangeLog>

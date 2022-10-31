@@ -1,7 +1,8 @@
 package liga.medical.personservice.core.service;
 
-import liga.medical.personservice.core.mappers.MedicalCardMapper;
-import liga.medical.personservice.core.model.MedicalCard;
+import liga.medical.personservice.api.service.MedicalCardService;
+import liga.medical.personservice.core.repository.MedicalCardMapper;
+import liga.medical.personservice.dto.model.MedicalCard;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

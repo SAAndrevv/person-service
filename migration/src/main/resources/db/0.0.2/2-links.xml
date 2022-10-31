@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+		        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="0.0.2-2" author="Andrey">
+        <comment>Create many to many link</comment>
+
+        <createTable tableName="user_to_role" schemaName="security">
+            <column name="user_id" type="VARCHAR(36)"/>
+            <column name="role_id" type="int"/>
+        </createTable>
+
+        <addForeignKeyConstraint baseTableName="user_to_role"
+                                 baseColumnNames="user_id"
+                                 baseTableSchemaName="security"
+                                 constraintName="user_id_fk"
+                                 referencedTableName="user"
+                                 referencedTableSchemaName="security"
+                                 referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint baseTableName="user_to_role"
+                                 baseColumnNames="role_id"
+                                 baseTableSchemaName="security"
+                                 constraintName="role_id_fk"
+                                 referencedTableName="role"
+                                 referencedTableSchemaName="security"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+</databaseChangeLog>

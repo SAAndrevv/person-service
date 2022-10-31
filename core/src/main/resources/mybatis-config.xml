@@ -5,9 +5,18 @@
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
     <typeAliases>
-        <package name="liga.medical.personservice.core.model"/>
+        <typeAlias alias="Address" type="liga.medical.personservice.dto.model.Address"/>
+        <typeAlias alias="Contact" type="liga.medical.personservice.dto.model.Contact"/>
+        <typeAlias alias="Illness" type="liga.medical.personservice.dto.model.Illness"/>
+        <typeAlias alias="MedicalCard" type="liga.medical.personservice.dto.model.MedicalCard"/>
+        <typeAlias alias="PersonData" type="liga.medical.personservice.dto.model.PersonData"/>
+        <typeAlias alias="Role" type="liga.medical.personservice.dto.model.Role"/>
+        <typeAlias alias="User" type="liga.medical.personservice.dto.model.User"/>
+        <typeAlias alias="UserPrincipal" type="liga.medical.personservice.core.model.UserPrincipal"/>
     </typeAliases>
     <mappers>
-        <mapper resource="liga/medical/personservice/core/mappers/ContactMapper.xml"/>
+        <mapper resource="liga/medical/personservice/core/repository/UserMapper.xml"/>
+        <mapper resource="liga/medical/personservice/core/repository/UserToRoleMapper.xml"/>
+        <mapper resource="liga/medical/personservice/core/repository/RoleMapper.xml"/>
     </mappers>
 </configuration>

@@ -1,7 +1,8 @@
 package liga.medical.personservice.core.service;
 
-import liga.medical.personservice.core.mappers.ContactMapper;
-import liga.medical.personservice.core.model.Contact;
+import liga.medical.personservice.api.service.ContactService;
+import liga.medical.personservice.core.repository.ContactMapper;
+import liga.medical.personservice.dto.model.Contact;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

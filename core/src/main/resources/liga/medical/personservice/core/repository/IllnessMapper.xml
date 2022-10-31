@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="liga.medical.personservice.core.repository.IllnessMapper">
+
+    <resultMap id="illnessResultMap" type="Illness">
+        <id property="id" column="id"/>
+        <result property="typeId" column="type_id"/>
+        <result property="heaviness" column="heaviness"/>
+        <result property="appearanceDttm" column="appearance_dttm"/>
+        <result property="recoveryDt" column="recovery_dt"/>
+        <association property="medicalCardId" javaType="MedicalCard">
+            <id property="id" column="id"/>
+            <result property="clientStatus" column="client_status"/>
+            <result property="medStatus" column="med_status"/>
+            <result property="registryDt" column="registry_dt"/>
+            <result property="comment" column="comment"/>
+        </association>
+    </resultMap>
+
+    <select id="findAllIllness" resultMap="illnessResultMap">
+        select * from illness
+    </select>
+</mapper>

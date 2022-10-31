@@ -1,7 +1,8 @@
 package liga.medical.personservice.core.service;
 
-import liga.medical.personservice.core.mappers.IllnessMapper;
-import liga.medical.personservice.core.model.Illness;
+import liga.medical.personservice.api.service.IllnessService;
+import liga.medical.personservice.core.repository.IllnessMapper;
+import liga.medical.personservice.dto.model.Illness;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

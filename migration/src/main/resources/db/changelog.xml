@@ -8,4 +8,8 @@
     <include file="db/0.0.1/1-initial.xml"/>
     <include file="db/0.0.1/2-insert.xml"/>
 
+    <include file="db/0.0.2/1-initial.xml"/>
+    <include file="db/0.0.2/2-links.xml"/>
+    <include file="db/0.0.2/3-insert.xml"/>
+
 </databaseChangeLog>
