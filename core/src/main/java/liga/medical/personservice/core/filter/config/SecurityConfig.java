@@ -1,4 +1,4 @@
-package liga.medical.personservice.core.config;
+package liga.medical.personservice.core.filter.config;
 
 import liga.medical.personservice.api.service.UserService;
 import liga.medical.personservice.core.filter.JwtFilter;
@@ -35,6 +35,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/registration").not().fullyAuthenticated()
                 .antMatchers("/admin/**").hasAnyRole("ADMIN")
                 .antMatchers("/user").hasRole("USER")
+                .antMatchers("/auth").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

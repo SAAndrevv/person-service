@@ -20,6 +20,8 @@
         <postgres.version>42.5.0</postgres.version>
         <liquidbase.version>3.8.9</liquidbase.version>
         <jwyoi.version>0.9.1</jwyoi.version>
+        <spring-cloud.version>2020.0.3</spring-cloud.version>
+        <springfox.version>3.0.0</springfox.version>
     </properties>
 
     <dependencyManagement>
@@ -62,6 +64,18 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-validation</artifactId>
                 <version>${spring.boot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-boot-starter</artifactId>
+                <version>${springfox.version}</version>
             </dependency>
 
             <dependency>

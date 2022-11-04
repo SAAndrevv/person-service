@@ -1,4 +1,4 @@
-package liga.medical.personservice.core.config;
+package liga.medical.personservice.core.filter.config;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

@@ -13,10 +13,12 @@
         <typeAlias alias="Role" type="liga.medical.personservice.dto.model.Role"/>
         <typeAlias alias="User" type="liga.medical.personservice.dto.model.User"/>
         <typeAlias alias="UserPrincipal" type="liga.medical.personservice.core.model.UserPrincipal"/>
+        <typeAlias alias="LogDto" type="liga.medical.personservice.dto.log.LogDto"/>
     </typeAliases>
     <mappers>
         <mapper resource="liga/medical/personservice/core/repository/UserMapper.xml"/>
         <mapper resource="liga/medical/personservice/core/repository/UserToRoleMapper.xml"/>
         <mapper resource="liga/medical/personservice/core/repository/RoleMapper.xml"/>
+        <mapper resource="liga/medical/personservice/core/repository/LogMapper.xml"/>
     </mappers>
 </configuration>

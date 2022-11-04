@@ -1,5 +1,7 @@
 package liga.medical.personservice.core.controller;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import liga.medical.personservice.api.service.UserService;
 import liga.medical.personservice.dto.model.User;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/registration")
 @RequiredArgsConstructor
+@Api("Registration API")
 public class RegisterController {
 
     private final UserService userService;
@@ -21,6 +24,7 @@ public class RegisterController {
     private final UserValidate userValidate;
 
     @PostMapping
+    @ApiOperation("Register current user")
     public String addUser(@ModelAttribute("userForm") User userForm, BindingResult bindingResult) {
         userValidate.validate(userForm, bindingResult);
 
@@ -34,6 +38,7 @@ public class RegisterController {
     }
 
     @GetMapping
+    @ApiOperation("Open registration page")
     public String registration(Model model) {
         model.addAttribute("userForm", new User());
         return "registration";

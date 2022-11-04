@@ -2,7 +2,7 @@ package liga.medical.personservice.core.filter;
 
 import liga.medical.personservice.api.model.IUserDetails;
 import liga.medical.personservice.api.service.UserService;
-import liga.medical.personservice.core.config.JwtUtil;
+import liga.medical.personservice.core.filter.config.JwtUtil;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +43,6 @@ public class JwtFilter extends OncePerRequestFilter {
 
         if (uuid != null && !SecurityContextHolder.getContext().getAuthentication().isAuthenticated()) {
             IUserDetails userDetails = userService.getUserByUuid(uuid);
-
             if (jwtUtil.validateToken(jwt, userDetails)) {
 
                 UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =

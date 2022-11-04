@@ -1,17 +1,14 @@
 spring:
-  messages:
-    basename: validations
   mvc:
     view:
       prefix: /WEB-INF/jsp/
       suffix: .jsp
+
   liquibase:
     enabled: ${LIQUIBASE_ENABLE:false}
   datasource:
     platform: postgresql
     url: jdbc:postgresql://localhost:5432/postgres
-    username: postgres
-    password: root
     driver-class-name: org.postgresql.Driver
     initialization-mode: always
     hikari:
@@ -20,15 +17,30 @@ spring:
       username: ${DB_USERNAME:postgres}
       password: ${DB_PASSWORD:root}
 
+  application:
+    name: person-service
+
+  zipkin:
+    enabled: ${ZIPKIN_MODE:false}
+
+  main:
+    banner-mode: off
+
 mybatis:
   config-location: classpath:mybatis-config.xml
 
-
 logging:
+  file:
+    name: person-service.log
   level:
-    web: DEBUG
-    org:
-      springframework:
-        jdbc:
-          core: TRACE
+    org.springframework.jdbc.core: TRACE
 
+management:
+  endpoint:
+    loggers:
+      enabled: true
+
+  endpoints:
+    web:
+      exposure:
+        exclude: "health, info, loggers"
