@@ -1,11 +1,21 @@
 spring:
-  mvc:
-    view:
-      prefix: /WEB-INF/jsp/
-      suffix: .jsp
+  rabbitmq:
+    port: 5672
+    host: "localhost"
 
   liquibase:
     enabled: ${LIQUIBASE_ENABLE:false}
+
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQL82Dialect
+    hibernate:
+      ddl-auto: none
+    sql:
+      init:
+        mode: always
+
   datasource:
     platform: postgresql
     url: jdbc:postgresql://localhost:5432/postgres
@@ -26,9 +36,6 @@ spring:
   main:
     banner-mode: off
 
-mybatis:
-  config-location: classpath:mybatis-config.xml
-
 logging:
   file:
     name: person-service.log
@@ -44,3 +51,9 @@ management:
     web:
       exposure:
         exclude: "health, info, loggers"
+
+rabbit:
+  queue:
+    daily-queue: "daily_queue"
+    alert-queue: "alert_queue"
+    error-queue: "error_queue"

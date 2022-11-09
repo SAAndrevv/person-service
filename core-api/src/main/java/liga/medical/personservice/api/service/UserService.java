@@ -1,35 +1,30 @@
 package liga.medical.personservice.api.service;
 
-import liga.medical.personservice.api.model.IUserDetails;
+import liga.medical.personservice.dto.model.Role;
 import liga.medical.personservice.dto.model.User;
-import liga.medical.personservice.dto.security.RoleDto;
-import liga.medical.personservice.dto.security.UserDto;
+import liga.medical.personservice.dto.security.UserRegisterBody;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 public interface UserService extends UserDetailsService {
 
     @Override
-    IUserDetails loadUserByUsername(String username) throws UsernameNotFoundException;
+    UserDetails loadUserByUsername(String username) throws UsernameNotFoundException;
 
-    IUserDetails getUserByUuid(String uuid) throws UsernameNotFoundException;
+    UserDetails getUserPrincipalByUsername(String username) throws UsernameNotFoundException;
 
-    Optional<User> findUserByUserName(String username);
+    Optional<User> findUserByUsername(String username);
 
-    UserDto getUserDtoByUserName(String username);
+    void save(UserRegisterBody userRegisterBody);
 
-    List<UserDto> getAllUsersDto();
+    List<User> getAllUsers();
 
-    void save(User user);
+    void addRoleToUser(String username, Role role);
 
-    void addRolesToUser(String userId, Set<RoleDto> roles);
-
-    void addRoleToUser(String userId, String roleName);
-
-    void deleteById(String uuid);
+    void deleteByUsername(String username);
 
 }

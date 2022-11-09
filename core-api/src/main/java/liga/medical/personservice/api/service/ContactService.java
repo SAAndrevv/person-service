@@ -2,10 +2,12 @@ package liga.medical.personservice.api.service;
 
 import liga.medical.personservice.dto.model.Contact;
 
-import java.util.List;
+import java.util.Optional;
 
 public interface ContactService {
 
-    List<Contact> getAllContacts();
+    Optional<Contact> getContactByUserId(long id);
+    void saveContact(Contact contact);
+    void updateContact(Contact contact);
 
 }

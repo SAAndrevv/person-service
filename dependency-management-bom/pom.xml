@@ -20,7 +20,6 @@
         <postgres.version>42.5.0</postgres.version>
         <liquidbase.version>3.8.9</liquidbase.version>
         <jwyoi.version>0.9.1</jwyoi.version>
-        <spring-cloud.version>2020.0.3</spring-cloud.version>
         <springfox.version>3.0.0</springfox.version>
     </properties>
 
@@ -42,11 +41,6 @@
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-actuator</artifactId>
-                <version>${spring.boot.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-jdbc</artifactId>
                 <version>${spring.boot.version}</version>
             </dependency>
             <dependency>

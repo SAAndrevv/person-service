@@ -47,3 +47,10 @@ create table if not exists medical.illness (
     recovery_dt date
 );
 
+create table if not exists medical.signal (
+    id bigint not null primary key,
+    person_data_id bigint references medical.person_data (id),
+    description varchar(255),
+    type varchar(32)
+);
+

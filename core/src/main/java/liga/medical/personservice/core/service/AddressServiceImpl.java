@@ -1,29 +1,41 @@
 package liga.medical.personservice.core.service;
 
 import liga.medical.personservice.api.service.AddressService;
-import liga.medical.personservice.core.repository.AddressMapper;
+import liga.medical.personservice.api.service.ContactService;
+import liga.medical.personservice.core.repository.AddressRepository;
 import liga.medical.personservice.dto.model.Address;
-import lombok.NonNull;
+import liga.medical.personservice.dto.model.Contact;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
 public class AddressServiceImpl implements AddressService {
 
-    @NonNull
-    private AddressMapper mapper;
+    private final AddressRepository repository;
+
+    private final ContactService contactService;
 
     @Override
-    public List<Address> getAllAddress() {
-        return mapper.findAllAddress();
+    public Optional<Address> getAddressByUserId(long id) {
+        Optional<Contact> contact = contactService.getContactByUserId(id);
+        if (contact.isEmpty()) {
+            return Optional.empty();
+        }
+
+        return repository.findAddressByContactId(contact.get().getId());
     }
 
     @Override
-    public Address getAddressById(long id) {
-        return mapper.findAddressById(1);
+    public void saveAddress(Address address) {
+        repository.save(address);
+    }
+
+    @Override
+    public void updateAddress(Address address) {
+        repository.save(address);
     }
 
 }

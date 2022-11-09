@@ -3,20 +3,24 @@ package liga.medical.personservice.core;
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
-@ComponentScan(basePackages = {"liga.medical.personservice", "liga.medical.common.service"})
+@ComponentScan(basePackages = {"liga.medical.personservice", "liga.medical.commonmodule"})
+@EnableJpaRepositories({"liga.medical.commonmodule.service.repository", "liga.medical.personservice.core.repository"})
+@EntityScan({"liga.medical.commonmodule.dto.entity", "liga.medical.personservice.dto.model"})
 public class PersonServiceApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(PersonServiceApplication.class, args);
     }
 
-    @Bean
+   /* @Bean
     public ModelMapper modelMapper() {
         return new ModelMapper();
-    }
+    }*/
 
 }

@@ -2,10 +2,12 @@ package liga.medical.personservice.api.service;
 
 import liga.medical.personservice.dto.model.PersonData;
 
-import java.util.List;
+import java.util.Optional;
 
 public interface PersonDataService {
 
-    List<PersonData> getAllPersonData();
+    Optional<PersonData> getPersonDataByUserId(long id);
+    void savePersonData(PersonData personData);
+    void updatePersonData(PersonData personData);
 
 }

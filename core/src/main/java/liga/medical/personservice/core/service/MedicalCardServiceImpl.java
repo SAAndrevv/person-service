@@ -1,24 +1,32 @@
 package liga.medical.personservice.core.service;
 
 import liga.medical.personservice.api.service.MedicalCardService;
-import liga.medical.personservice.core.repository.MedicalCardMapper;
+import liga.medical.personservice.core.repository.MedicalCardRepository;
 import liga.medical.personservice.dto.model.MedicalCard;
-import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
 public class MedicalCardServiceImpl implements MedicalCardService {
 
-    @NonNull
-    private MedicalCardMapper mapper;
+    private final MedicalCardRepository repository;
 
     @Override
-    public List<MedicalCard> getAllMedicalCard() {
-        return mapper.findAllMedicalCard();
+    public Optional<MedicalCard> getMedicalCardByUserId(long id) {
+        return repository.findMedicalCardByContactId(id);
+    }
+
+    @Override
+    public void saveMedicalCard(MedicalCard medicalCard) {
+        repository.save(medicalCard);
+    }
+
+    @Override
+    public void updateMedicalCard(MedicalCard medicalCard) {
+        repository.save(medicalCard);
     }
 
 }

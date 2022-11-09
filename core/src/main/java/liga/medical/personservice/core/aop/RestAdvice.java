@@ -1,7 +1,7 @@
 package liga.medical.personservice.core.aop;
 
+import liga.medical.commonmodule.utils.ListUtils;
 import liga.medical.personservice.core.auth.AuthenticationFacade;
-import liga.medical.personservice.utils.ListUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;

@@ -14,4 +14,6 @@
     
     <include file="db/0.0.3/1-initial.xml"/>
 
+    <include file="db/0.0.4/1-initial.xml"/>
+
 </databaseChangeLog>

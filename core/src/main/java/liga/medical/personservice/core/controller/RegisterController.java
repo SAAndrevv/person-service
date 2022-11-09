@@ -3,17 +3,17 @@ package liga.medical.personservice.core.controller;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import liga.medical.personservice.api.service.UserService;
-import liga.medical.personservice.dto.model.User;
+import liga.medical.personservice.dto.exception.UserValidateException;
+import liga.medical.personservice.dto.security.UserRegisterBody;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+@RestController
 @RequestMapping("/registration")
 @RequiredArgsConstructor
 @Api("Registration API")
@@ -25,23 +25,16 @@ public class RegisterController {
 
     @PostMapping
     @ApiOperation("Register current user")
-    public String addUser(@ModelAttribute("userForm") User userForm, BindingResult bindingResult) {
-        userValidate.validate(userForm, bindingResult);
-
-        if (bindingResult.hasErrors()) {
-            return "registration";
+    public ResponseEntity<?> addUser(@RequestBody UserRegisterBody userRegisterBody) {
+        try {
+            userValidate.validate(userRegisterBody);
+        } catch (UserValidateException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
 
-        userService.save(userForm);
+        userService.save(userRegisterBody);
 
-        return "redirect:/user-info";
-    }
-
-    @GetMapping
-    @ApiOperation("Open registration page")
-    public String registration(Model model) {
-        model.addAttribute("userForm", new User());
-        return "registration";
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
 }

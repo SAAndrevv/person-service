@@ -1,10 +1,7 @@
 package liga.medical.personservice.core.controller;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import liga.medical.personservice.api.service.PersonDataService;
 import liga.medical.personservice.api.service.UserService;
-
 import liga.medical.personservice.dto.model.PersonData;
 import liga.medical.personservice.dto.model.User;
 import lombok.RequiredArgsConstructor;
@@ -16,18 +13,16 @@ import java.security.Principal;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/user/person-data")
 @RequiredArgsConstructor
-@Api("User information API")
-public class UserController {
-
-    private final UserService userService;
+public class PersonDataController {
 
     private final PersonDataService personDataService;
 
+    private final UserService userService;
+
     @GetMapping
-    @ApiOperation("Get current user information")
-    public ResponseEntity<?> getUserInfo(Principal principal) {
+    public ResponseEntity<?> getPersonData(Principal principal) {
         Optional<User> user = userService.findUserByUsername(principal.getName());
         long id = user.get().getId();
 
@@ -41,11 +36,19 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<?> addUserInfo(@RequestBody PersonData personData, Principal principal) {
+    public ResponseEntity<?> addPersonData(@RequestBody PersonData personData, Principal principal) {
         //TODO check if the user saves his data and that data not created
         personDataService.savePersonData(personData);
 
         return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    @PatchMapping
+    public ResponseEntity<?> editPersonData(@RequestBody PersonData personData, Principal principal) {
+        //TODO check if the user edit his data
+        personDataService.updatePersonData(personData);
+
+        return ResponseEntity.ok().build();
     }
 
 }

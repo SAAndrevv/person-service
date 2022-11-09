@@ -2,10 +2,12 @@ package liga.medical.personservice.api.service;
 
 import liga.medical.personservice.dto.model.Illness;
 
-import java.util.List;
+import java.util.Optional;
 
 public interface IllnessService {
 
-    List<Illness> getAllIllness();
+    Optional<Illness> getIllnessByUserId(long id);
+    void saveIllness(Illness illness);
+    void updateIllness(Illness illness);
 
 }

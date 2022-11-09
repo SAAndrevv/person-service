@@ -2,11 +2,12 @@ package liga.medical.personservice.api.service;
 
 import liga.medical.personservice.dto.model.Address;
 
-import java.util.List;
+import java.util.Optional;
 
 public interface AddressService {
 
-    List<Address> getAllAddress();
+    Optional<Address> getAddressByUserId(long id);
+    void saveAddress(Address address);
+    void updateAddress(Address address);
 
-    Address getAddressById(long id);
 }

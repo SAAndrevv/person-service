@@ -1,24 +1,32 @@
 package liga.medical.personservice.core.service;
 
 import liga.medical.personservice.api.service.PersonDataService;
-import liga.medical.personservice.core.repository.PersonDataMapper;
+import liga.medical.personservice.core.repository.PersonDataRepository;
 import liga.medical.personservice.dto.model.PersonData;
-import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
 public class PersonDataServiceImpl implements PersonDataService {
 
-    @NonNull
-    private PersonDataMapper mapper;
+    private final PersonDataRepository repository;
 
     @Override
-    public List<PersonData> getAllPersonData() {
-        return mapper.findAllPersonData();
+    public Optional<PersonData> getPersonDataByUserId(long id) {
+        return repository.findPersonDataByContactId(id);
+    }
+
+    @Override
+    public void savePersonData(PersonData personData) {
+        repository.save(personData);
+    }
+
+    @Override
+    public void updatePersonData(PersonData personData) {
+        repository.save(personData);
     }
 
 }

@@ -1,24 +1,32 @@
 package liga.medical.personservice.core.service;
 
 import liga.medical.personservice.api.service.ContactService;
-import liga.medical.personservice.core.repository.ContactMapper;
+import liga.medical.personservice.core.repository.ContactRepository;
 import liga.medical.personservice.dto.model.Contact;
-import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
 public class ContactServiceImpl implements ContactService {
 
-    @NonNull
-    private ContactMapper mapper;
+    private final ContactRepository repository;
 
     @Override
-    public List<Contact> getAllContacts() {
-        return mapper.findAllContact();
+    public Optional<Contact> getContactByUserId(long id) {
+        return repository.findById(id);
+    }
+
+    @Override
+    public void saveContact(Contact contact) {
+        repository.save(contact);
+    }
+
+    @Override
+    public void updateContact(Contact contact) {
+        repository.save(contact);
     }
 
 }

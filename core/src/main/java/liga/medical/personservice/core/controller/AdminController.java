@@ -3,15 +3,12 @@ package liga.medical.personservice.core.controller;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import liga.medical.personservice.api.service.UserService;
+import liga.medical.personservice.dto.model.Role;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RestController
 @RequiredArgsConstructor
 @RequestMapping("/admin")
 @Api("Admin API")
@@ -21,27 +18,24 @@ public class AdminController {
 
     @GetMapping
     @ApiOperation("Get all registered users")
-    public String userList(Model model) {
-        model.addAttribute("allUsers", userService.getAllUsersDto());
-
-        return "admin";
+    public ResponseEntity<?> userList() {
+        return ResponseEntity.ok().body(userService.getAllUsers());
     }
 
-    @PostMapping("/delete-user")
+    @PostMapping("/delete-user/{username}")
     @ApiOperation("Delete user by id")
-    public String deleteUser(Model model, @RequestParam("userId") String userId) {
-        userService.deleteById(userId);
+    public ResponseEntity<?> deleteUser(@PathVariable("username") String username) {
+        userService.deleteByUsername(username);
 
-        return "redirect:/admin";
+        return ResponseEntity.ok().build();
     }
 
-    @PostMapping("/add-role")
+    @PostMapping("/add-role/{username}")
     @ApiOperation("Add role to user by id")
-    public String addRoleToUser(Model model, @RequestParam(name = "id") String userId,
-                                @RequestParam(name = "role") String role) {
-        userService.addRoleToUser(userId, role);
+    public ResponseEntity<?> addRoleToUser(@PathVariable("username") String username, @RequestBody Role role) {
+        userService.addRoleToUser(username, role);
 
-        return "redirect:/admin";
+        return ResponseEntity.ok().build();
     }
 
 }
