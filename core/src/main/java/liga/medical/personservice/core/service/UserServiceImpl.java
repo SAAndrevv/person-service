@@ -46,7 +46,6 @@ public class UserServiceImpl implements UserService {
     public List<User> getAllUsers() {
         List<User> users = new LinkedList<>();
         userRepository.findAll().forEach(users::add);
-
         return users;
     }
 

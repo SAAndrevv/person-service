@@ -1,5 +1,6 @@
 package liga.medical.personservice.dto.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.persistence.*;
@@ -26,6 +27,7 @@ public class Role {
     )
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
+    @JsonIgnoreProperties(value="roles")
     private Set<User> users;
 
 }

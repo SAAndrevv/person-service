@@ -16,7 +16,11 @@ public class UserModelMapper {
     private ModelMapper mapper;
 
     public UserPrincipal userToPrincipal(User user) {
-        return mapper.map(user, UserPrincipal.class);
+        UserPrincipal userPrincipal = new UserPrincipal();
+        userPrincipal.setUsername(user.getUsername());
+        userPrincipal.setPassword(user.getPassword());
+        userPrincipal.setRoles(user.getRoles());
+        return userPrincipal;
     }
 
     public User userRegisterBodyToUser(UserRegisterBody userRegisterBody) {
