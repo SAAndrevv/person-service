@@ -1,7 +1,7 @@
 CREATE SCHEMA if not exists medical;
 
 create table if not exists medical.medical_card (
-    id bigint not null primary key,
+    id serial not null primary key,
     client_status char,
     med_status char,
     registry_dt date,
@@ -9,14 +9,14 @@ create table if not exists medical.medical_card (
 );
 
 create table if not exists medical.contact (
-    id bigint not null primary key,
+    id serial not null primary key,
     phone_number varchar(32),
     email varchar(128),
     profile_link text
 );
 
 create table if not exists medical.address (
-    id bigint not null primary key,
+    id serial not null primary key,
     contact_id bigint references medical.contact (id),
     country_id bigint,
     city varchar(255),
@@ -27,7 +27,7 @@ create table if not exists medical.address (
 );
 
 create table if not exists medical.person_data (
-    id bigint not null primary key,
+    id serial not null primary key,
     last_name varchar(255),
     first_name varchar(255),
     birth_dt date,
@@ -39,7 +39,7 @@ create table if not exists medical.person_data (
 );
 
 create table if not exists medical.illness (
-    id bigint not null primary key,
+    id serial not null primary key,
     medical_card_id bigint references medical.medical_card (id),
     type_id bigint,
     heaviness char,
@@ -48,7 +48,7 @@ create table if not exists medical.illness (
 );
 
 create table if not exists medical.signal (
-    id bigint not null primary key,
+    id serial not null primary key,
     person_data_id bigint references medical.person_data (id),
     description varchar(255),
     type varchar(32)

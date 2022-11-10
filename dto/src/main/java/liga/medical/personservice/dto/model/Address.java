@@ -1,5 +1,7 @@
 package liga.medical.personservice.dto.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,6 +21,7 @@ public class Address {
 
     @OneToOne
     @JoinColumn(name = "contact_id", referencedColumnName = "id")
+    @JsonBackReference
     private Contact contact;
 
     @Column(name = "country_id")
@@ -33,7 +36,7 @@ public class Address {
     @Column(name = "street")
     private String street;
 
-    @Column(name = "buildings")
+    @Column(name = "building")
     private String buildings;
 
     @Column(name = "flat")

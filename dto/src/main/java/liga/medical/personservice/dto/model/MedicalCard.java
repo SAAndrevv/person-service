@@ -1,5 +1,6 @@
 package liga.medical.personservice.dto.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,16 +26,14 @@ public class MedicalCard {
     private String medStatus;
 
     @Column(name = "registry_dt")
+    @Temporal(TemporalType.DATE)
     private Date registryDt;
 
     @Column(name = "comment")
     private String comment;
 
-    @OneToOne(mappedBy = "medicalCard")
-    @PrimaryKeyJoinColumn
+    @OneToOne(mappedBy = "medicalCard", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private Illness illness;
-
-    @OneToOne(mappedBy = "medicalCard")
-    private PersonData personData;
 
 }

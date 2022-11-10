@@ -1,5 +1,6 @@
 package liga.medical.personservice.dto.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,6 +27,7 @@ public class PersonData {
     private String firstName;
 
     @Column(name = "birth_dt")
+    @Temporal(TemporalType.DATE)
     private Date birthDt;
 
     @Column(name = "age")
@@ -38,15 +40,13 @@ public class PersonData {
     @JoinColumn(name = "contact_id", referencedColumnName = "id")
     private Contact contact;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "medical_card_id", referencedColumnName = "id")
     private MedicalCard medicalCard;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "parent_id")
+    @JsonIgnoreProperties(value="contact")
     private PersonData parent;
-
-    @OneToMany(mappedBy = "personData")
-    private Set<Signal> signals;
 
 }

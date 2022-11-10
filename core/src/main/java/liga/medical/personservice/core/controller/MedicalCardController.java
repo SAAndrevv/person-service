@@ -37,18 +37,38 @@ public class MedicalCardController {
 
     @PostMapping
     public ResponseEntity<?> addMedicalCard(@RequestBody MedicalCard medicalCard, Principal principal) {
-        //TODO check if the user saves his data and that data not created
-        medicalCardService.saveMedicalCard(medicalCard);
+        Optional<Long> id = userService.getIdByUsername(principal.getName());
 
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        if (id.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+        }
+        Optional<MedicalCard> medicalCardOptional = medicalCardService.getMedicalCardByUserId(id.get());
+
+        // Not full check
+        if (medicalCardOptional.isEmpty()) {
+            medicalCardService.saveMedicalCard(medicalCard);
+            return ResponseEntity.status(HttpStatus.CREATED).body(medicalCard);
+        }
+
+        return ResponseEntity.status(HttpStatus.CONFLICT).build();
     }
 
     @PatchMapping
     public ResponseEntity<?> editMedicalCard(@RequestBody MedicalCard medicalCard, Principal principal) {
-        //TODO check if the user edit his data
-        medicalCardService.updateMedicalCard(medicalCard);
+        Optional<Long> id = userService.getIdByUsername(principal.getName());
+        if (id.isPresent()) {
+            Optional<MedicalCard> medicalCardOptional = medicalCardService.getMedicalCardByUserId(id.get());
 
-        return ResponseEntity.ok().build();
+            if (medicalCardOptional.isPresent() &&
+                    medicalCardOptional.get().getId() == medicalCard.getId()) {
+                medicalCardService.updateMedicalCard(medicalCard);
+                return ResponseEntity.status(HttpStatus.OK).body(medicalCard);
+            }
+
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+        }
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
     }
 
 }

@@ -37,18 +37,35 @@ public class ContactController {
 
     @PostMapping
     public ResponseEntity<?> addContact(@RequestBody Contact contact, Principal principal) {
-        //TODO check if the user saves his data and that data not created
-        contactService.saveContact(contact);
+        Optional<Long> id = userService.getIdByUsername(principal.getName());
 
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        if (id.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+        }
+        Optional<Contact> contactOptional = contactService.getContactByUserId(id.get());
+        if (id.get() == contact.getId() && contactOptional.isEmpty()) {
+            contactService.saveContact(contact);
+            return ResponseEntity.status(HttpStatus.CREATED).body(contact);
+        }
+
+        return ResponseEntity.status(HttpStatus.CONFLICT).build();
     }
 
     @PatchMapping
     public ResponseEntity<?> editContact(@RequestBody Contact contact, Principal principal) {
-        //TODO check if the user edit his data
-        contactService.updateContact(contact);
+        Optional<Long> id = userService.getIdByUsername(principal.getName());
+        if (id.isPresent()) {
+            Optional<Contact> contactOptional = contactService.getContactByUserId(id.get());
 
-        return ResponseEntity.ok().build();
+            if (id.get() == contact.getId() && contactOptional.isPresent()) {
+                contactService.saveContact(contact);
+                return ResponseEntity.status(HttpStatus.OK).body(contact);
+            }
+
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+        }
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
     }
 
 }

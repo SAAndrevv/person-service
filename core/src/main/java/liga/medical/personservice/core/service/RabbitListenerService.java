@@ -3,25 +3,29 @@ package liga.medical.personservice.core.service;
 import liga.medical.commonmodule.dto.enums.RabbitMessageType;
 import liga.medical.commonmodule.dto.rabbit.RabbitMessageDto;
 import liga.medical.commonmodule.service.annotation.DBLog;
+import liga.medical.personservice.api.service.ContactService;
 import liga.medical.personservice.api.service.PersonDataService;
 import liga.medical.personservice.core.repository.SignalRepository;
+import liga.medical.personservice.dto.model.Contact;
 import liga.medical.personservice.dto.model.PersonData;
 import liga.medical.personservice.dto.model.Signal;
 import lombok.RequiredArgsConstructor;
 import org.springframework.amqp.rabbit.annotation.EnableRabbit;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @EnableRabbit
-@Component
+@Service
 @RequiredArgsConstructor
 public class RabbitListenerService {
 
     private final SignalRepository repository;
 
     private final PersonDataService personDataService;
+
+    private final ContactService contactService;
 
     @RabbitListener(queues = "daily_queue")
     @DBLog
@@ -36,9 +40,10 @@ public class RabbitListenerService {
         saveMessage(message);
         //System.out.println("Get message from alert_queue: " + message.getMessage());
     }
-
+    
     private void saveMessage(RabbitMessageDto message) {
         Optional<PersonData> personData = personDataService.getPersonDataByUserId(message.getId());
+        System.out.println(personData);
         personData.ifPresent(data -> repository.save(new Signal(data,
                 message.getMessage(),
                 RabbitMessageType.valueOf(message.getType().toUpperCase()))));

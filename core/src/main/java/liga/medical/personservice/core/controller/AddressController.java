@@ -37,18 +37,35 @@ public class AddressController {
 
     @PostMapping
     public ResponseEntity<?> addAddress(@RequestBody Address address, Principal principal) {
-        //TODO check if the user saves his data and that data not created
-        addressService.saveAddress(address);
+        Optional<Long> id = userService.getIdByUsername(principal.getName());
 
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        if (id.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+        }
+        Optional<Address> addressOptional = addressService.getAddressByUserId(id.get());
+        if (id.get() == address.getContact().getId() && addressOptional.isEmpty()) {
+            addressService.saveAddress(address);
+            return ResponseEntity.status(HttpStatus.CREATED).body(address);
+        }
+
+        return ResponseEntity.status(HttpStatus.CONFLICT).build();
     }
 
     @PatchMapping
     public ResponseEntity<?> editAddress(@RequestBody Address address, Principal principal) {
-        //TODO check if the user edit his data
-        addressService.updateAddress(address);
+        Optional<Long> id = userService.getIdByUsername(principal.getName());
+        if (id.isPresent()) {
+            Optional<Address> addressOptional = addressService.getAddressByUserId(id.get());
 
-        return ResponseEntity.ok().build();
+            if (id.get() == address.getContact().getId() && addressOptional.isPresent()) {
+                addressService.updateAddress(address);
+                return ResponseEntity.status(HttpStatus.OK).body(address);
+            }
+
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+        }
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
     }
 
 }

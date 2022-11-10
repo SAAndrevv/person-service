@@ -13,4 +13,5 @@ public interface MedicalCardRepository extends CrudRepository<MedicalCard, Long>
             " JOIN Contact c ON c.id = pd.contact.id" +
             " WHERE c.id = ?1")
     Optional<MedicalCard> findMedicalCardByContactId(long id);
+
 }

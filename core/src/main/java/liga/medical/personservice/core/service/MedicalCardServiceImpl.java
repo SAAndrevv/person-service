@@ -29,4 +29,10 @@ public class MedicalCardServiceImpl implements MedicalCardService {
         repository.save(medicalCard);
     }
 
+    @Override
+    public Optional<Long> getMedicalCardIdByUserId(long id) {
+        Optional<MedicalCard> medicalCard = repository.findMedicalCardByContactId(id);
+        return medicalCard.map(MedicalCard::getId);
+    }
+
 }

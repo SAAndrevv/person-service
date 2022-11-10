@@ -9,5 +9,6 @@ public interface MedicalCardService {
     Optional<MedicalCard> getMedicalCardByUserId(long id);
     void saveMedicalCard(MedicalCard medicalCard);
     void updateMedicalCard(MedicalCard medicalCard);
+    Optional<Long> getMedicalCardIdByUserId(long id);
 
 }

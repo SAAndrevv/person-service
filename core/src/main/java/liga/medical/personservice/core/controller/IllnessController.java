@@ -1,6 +1,7 @@
 package liga.medical.personservice.core.controller;
 
 import liga.medical.personservice.api.service.IllnessService;
+import liga.medical.personservice.api.service.MedicalCardService;
 import liga.medical.personservice.api.service.UserService;
 import liga.medical.personservice.dto.model.Illness;
 import liga.medical.personservice.dto.model.User;
@@ -21,6 +22,8 @@ public class IllnessController {
 
     private final UserService userService;
 
+    private final MedicalCardService medicalCardService;
+
     @GetMapping
     public ResponseEntity<?> getIllness(Principal principal) {
         Optional<User> user = userService.findUserByUsername(principal.getName());
@@ -37,18 +40,38 @@ public class IllnessController {
 
     @PostMapping
     public ResponseEntity<?> addIllness(@RequestBody Illness illness, Principal principal) {
-        //TODO check if the user saves his data and that data not created
-        illnessService.saveIllness(illness);
+        Optional<Long> id = userService.getIdByUsername(principal.getName());
 
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        if (id.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+        }
+        Optional<Illness> illnessOptional = illnessService.getIllnessByUserId(id.get());
+        Optional<Long> medicalCardId = medicalCardService.getMedicalCardIdByUserId(id.get());
+        if (illnessOptional.isEmpty() && medicalCardId.isPresent() &&
+                medicalCardId.get() == illness.getMedicalCard().getId()) {
+            illnessService.saveIllness(illness);
+            return ResponseEntity.status(HttpStatus.CREATED).body(illness);
+        }
+
+        return ResponseEntity.status(HttpStatus.CONFLICT).build();
     }
 
     @PatchMapping
     public ResponseEntity<?> editIllness(@RequestBody Illness illness, Principal principal) {
-        //TODO check if the user edit his data
-        illnessService.updateIllness(illness);
+        Optional<Long> id = userService.getIdByUsername(principal.getName());
+        if (id.isPresent()) {
+            Optional<Illness> illnessOptional = illnessService.getIllnessByUserId(id.get());
 
-        return ResponseEntity.ok().build();
+            if (illnessOptional.isPresent() &&
+                    illnessOptional.get().getMedicalCard().getId() == illness.getMedicalCard().getId()) {
+                illnessService.updateIllness(illness);
+                return ResponseEntity.status(HttpStatus.OK).body(illness);
+            }
+
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+        }
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
     }
 
 }

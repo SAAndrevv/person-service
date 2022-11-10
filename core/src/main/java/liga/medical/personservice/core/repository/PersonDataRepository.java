@@ -7,7 +7,6 @@ import java.util.Optional;
 
 public interface PersonDataRepository extends CrudRepository<PersonData, Long> {
 
-
     Optional<PersonData> findPersonDataByContactId(long id);
 
 }

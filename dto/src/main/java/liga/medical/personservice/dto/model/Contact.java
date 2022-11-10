@@ -1,5 +1,6 @@
 package liga.medical.personservice.dto.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,10 +27,8 @@ public class Contact {
     @Column(name = "profile_link")
     private String profileLink;
 
-    @OneToOne(mappedBy = "contact")
+    @OneToOne(mappedBy = "contact", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private Address address;
-
-    @OneToOne(mappedBy = "contact")
-    private PersonData personData;
 
 }

@@ -1,5 +1,7 @@
 package liga.medical.personservice.dto.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,6 +23,7 @@ public class Illness {
 
     @OneToOne
     @JoinColumn(name = "medical_card_id", referencedColumnName = "id")
+    @JsonBackReference
     private MedicalCard medicalCard;
 
     @Column(name = "type_id")
@@ -30,9 +33,11 @@ public class Illness {
     private char heaviness;
 
     @Column(name = "appearance_dttm")
-    private Timestamp appearanceDttm;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date appearanceDttm;
 
     @Column(name = "recovery_dt")
+    @Temporal(TemporalType.DATE)
     private  Date recoveryDt;
 
 }

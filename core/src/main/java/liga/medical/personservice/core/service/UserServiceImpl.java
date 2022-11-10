@@ -79,6 +79,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public Optional<Long> getIdByUsername(String username) {
+        return userRepository.findIdByUsername(username);
+    }
+
+    @Override
     public UserPrincipal getUserPrincipalByUsername(String username) throws UsernameNotFoundException {
         Optional<User> user = findUserByUsername(username);
 
