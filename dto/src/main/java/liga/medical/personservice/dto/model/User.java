@@ -1,11 +1,8 @@
 package liga.medical.personservice.dto.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
-import java.util.HashSet;
 import java.util.Set;
 
 @Data
@@ -26,11 +23,13 @@ public class User {
     private String password;
 
     @ManyToMany
-    @JoinTable(name = "user_to_role",
+    @JoinTable(name = "user_to_role", schema = "security",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
-    private Set<Role> roles = new HashSet<>();
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private Set<Role> roles;
 
     public void addRole(Role role) {
         roles.add(role);

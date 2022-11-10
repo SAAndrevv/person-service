@@ -12,7 +12,7 @@
             <column name="id" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="system_type_id" type="VARCHAR(16)">
+            <column name="system_type_id" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
             <column name="method_params" type="VARCHAR(255)">
@@ -24,7 +24,7 @@
             <column name="id" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="system_type_id" type="VARCHAR(16)">
+            <column name="system_type_id" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
             <column name="method_params" type="VARCHAR(255)">

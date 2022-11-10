@@ -20,12 +20,19 @@ public class Illness {
     private long id;
 
     @OneToOne
-    @MapsId
-    @JoinColumn(name = "medical_card_id")
+    @JoinColumn(name = "medical_card_id", referencedColumnName = "id")
     private MedicalCard medicalCard;
+
+    @Column(name = "type_id")
     private long typeId;
+
+    @Column(name = "heaviness")
     private char heaviness;
+
+    @Column(name = "appearance_dttm")
     private Timestamp appearanceDttm;
+
+    @Column(name = "recovery_dt")
     private  Date recoveryDt;
 
 }

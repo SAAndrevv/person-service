@@ -26,12 +26,10 @@ public class Contact {
     @Column(name = "profile_link")
     private String profileLink;
 
-    @OneToOne(mappedBy = "contact", cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
+    @OneToOne(mappedBy = "contact")
     private Address address;
 
-    @OneToOne(mappedBy = "contact", cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
+    @OneToOne(mappedBy = "contact")
     private PersonData personData;
 
 }

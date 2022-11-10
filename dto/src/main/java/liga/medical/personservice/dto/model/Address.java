@@ -18,8 +18,7 @@ public class Address {
     private long id;
 
     @OneToOne
-    @MapsId
-    @JoinColumn(name = "contact_id")
+    @JoinColumn(name = "contact_id", referencedColumnName = "id")
     private Contact contact;
 
     @Column(name = "country_id")

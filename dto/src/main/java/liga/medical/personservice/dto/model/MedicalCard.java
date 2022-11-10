@@ -30,12 +30,11 @@ public class MedicalCard {
     @Column(name = "comment")
     private String comment;
 
-    @OneToOne(mappedBy = "medicalCard", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "medicalCard")
     @PrimaryKeyJoinColumn
     private Illness illness;
 
-    @OneToOne(mappedBy = "medicalCard", cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
+    @OneToOne(mappedBy = "medicalCard")
     private PersonData personData;
 
 }

@@ -35,13 +35,11 @@ public class PersonData {
     private char sex;
 
     @OneToOne(fetch = FetchType.EAGER)
-    @MapsId
-    @JoinColumn(name = "contact_id")
+    @JoinColumn(name = "contact_id", referencedColumnName = "id")
     private Contact contact;
 
     @OneToOne(fetch = FetchType.EAGER)
-    @MapsId
-    @JoinColumn(name = "medical_card_id")
+    @JoinColumn(name = "medical_card_id", referencedColumnName = "id")
     private MedicalCard medicalCard;
 
     @ManyToOne(fetch = FetchType.EAGER)
